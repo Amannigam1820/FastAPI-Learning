@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Form
 from pydantic import BaseModel
 
 
@@ -39,5 +39,7 @@ async def create_item(item:schema1):
 # form data
 
 @app.post("/form-data")
-async def formData(username:str):
-    return {"username":username}
+async def formData(username:str = Form(), password:str=Form()):
+    return {"username":username, "Password":password}
+
+
