@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Form
+from fastapi import FastAPI, Form, File, UploadFile, HTTPException
 from pydantic import BaseModel
 
 
@@ -43,3 +43,21 @@ async def formData(username:str = Form(), password:str=Form()):
     return {"username":username, "Password":password}
 
 
+# file upload
+@app.post("/file")
+async def file_bytes_length(file:bytes = File()):
+    return ({"file":len(file)})
+
+
+
+@app.post("/file/upload")
+async def file_upload(file:UploadFile):
+    return({"file":file})
+
+###################################################################################################################################
+
+@app.get("/error/handle")
+async def handleError(item:int):
+    if item==2:
+        return HTTPException(status_code=400, detail="Item is not equal to 2, try another value")
+    return {"value":item}
