@@ -56,6 +56,9 @@ async def file_upload(file:UploadFile):
 
 ###################################################################################################################################
 
+
+# error handling
+
 @app.get("/error/handle")
 async def handleError(item:int):
     if item==2:
