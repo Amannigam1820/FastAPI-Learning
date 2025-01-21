@@ -37,3 +37,15 @@ def getAllUSers(skip:int = 0, limit:int =100, db:Session=Depends(get_db)):
     users = crud.get_all_users(db,skip=skip,limit=limit)
      
     return users
+
+@app.post("/users/{user_id}/items", response_model=schemas.Item)
+def createNewUserItem(user_id:int, item:schemas.ItemCreate, db:Session=Depends(get_db)):
+    return crud.create_new_itme(db=db,item=item,user_id=user_id)
+
+
+
+
+@app.get("/items", response_model=List[schemas.Item])
+def getAllItem(skip:int=0, limit:int=100, db:Session=Depends(get_db)):
+    items = crud.get_item(db, skip=skip, limit=limit)
+    return items
